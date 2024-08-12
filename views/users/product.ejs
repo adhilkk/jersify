@@ -1,0 +1,1252 @@
+
+<%- include('../layouts/header.ejs')-%>
+
+    <%- include('../layouts/navbar.ejs')-%>
+
+    <main class="main">
+
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            
+            <div class="container">
+                <h1 class="page-title text-black-50">Products<span>Shop</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <!-- <li class="breadcrumb-item"><a href="#">Shop</a></li> -->
+                    <li class="breadcrumb-item active" aria-current="page">All Products</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+
+                       
+
+                        <div class="products mb-3" id="reloadDiv">
+
+                            <div class="row" id="result">
+                                
+                                <% producData.forEach(val => { %>
+                                    
+                                    <div class="col-6 col-md-4 col-lg-4" id="cards">
+
+                                        <div class="product product-7 text-center">
+
+                                            <figure class="product-media">
+
+                                                <% if (val.stock <= 0) { %>
+
+                                                    <span class="product-label text-white text-bg-danger  label-out-of-stock">Out of Stock</span>
+                                                    
+                                                <% } else { %>
+
+                                                    <span class="product-label label-new <%= val.discount > 0 ? "bg-danger" : '' %>"><%= val.discount> 0 ? val.discount + '% OFF' : 'New' %></span>
+
+                                                <% } %>
+                                                
+                                                <!-- <span class="product-label label-new">New</span> -->
+                                                <input hidden value="<%= val.stock %>" id="stock">
+
+                                                <a href="/productDetails?id=<%= val._id %>">
+
+                                                    <img src="/productImage/<%= val.image[0] %>" alt="Product image" class="product-image">
+
+                                                </a>
+
+                                                <div class="product-action-vertical">
+                                                    <a onclick="addWishlist('<%= val._id %>')" class="btn-product-icon btn-wishlist btn-expandable"><span >add to wishlist</span></a>                                                    	<!-- <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a> -->
+                                                    <!-- <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a> -->
+                                                </div><!-- End .product-action-vertical -->
+
+                                                <div class="product-action">
+                                                    <button class="btn-product btn-cartv border-0" id="btns" onclick="addCart('<%= val._id %>')" style="cursor: pointer;" <%= val.stock <= 0 ? 'disabled' : '' %>>
+                                                        <span id="crt"><%= val.stock <= 0 ? 'Out Of Stock' : 'Add to Cart' %></span>
+                                                    </button>
+                                                                                                        </div><!-- End .product-action -->
+
+                                            </figure><!-- End .product-media -->
+
+                                            <div class="product-body">
+
+                                                <div class="product-cat">
+                                                    <a href="/category"><%= val.category.name %></a>
+                                                   </div><!-- End .product-cat -->
+
+                                                <h3 class="product-title"><a href="#"><%= val.name %></a></h3><!-- End .product-title -->
+
+                                                <div class="d-flex justify-content-center gap-3  "> 
+
+                                                <div class="product-price">
+                                                    <div class=" <%= val.discount > 0 ? 'text-decoration-line-through gap-2  text-danger opacity-50 ' : '' %> " ><%= val.price %>.00 </div>
+                                                    <% if(val.discount > 0){ %>
+
+                                                        <div class="text-success ">&nbsp;&nbsp;<%= val.dis_price %>.00</div>
+
+                                                    <% } %>
+                                                </div><!-- End .product-price -->
+
+
+                                                </div>
+
+                                                <!-- <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+                                                    </div>End .ratings
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+                                                </div>
+
+                                            <div class="product-nav product-nav-thumbs">
+                                                <a href="#" class="active">
+                                                    <img src="assets/images/products/product-4-thumb.jpg" alt="product desc">
+                                                </a>
+                                                <a href="#">
+                                                    <img src="assets/images/products/product-4-2-thumb.jpg" alt="product desc">
+                                                </a>
+
+                                                <a href="#">
+                                                    <img src="assets/images/products/product-4-3-thumb.jpg" alt="product desc">
+                                                </a>
+                                            </div> -->
+                                            <!-- End .product-nav  -->
+
+                                        </div><!-- End .product-body -->
+                                    </div><!-- End .product -->
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <%	}); %>
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                                 
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                               
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                                   
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                                   
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                                    
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                                  
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                              
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                                <div class="col-6 col-md-4 col-lg-4">
+                           
+                                </div><!-- End .col-sm-6 col-lg-4 -->
+
+                            </div><!-- End .row -->
+                        </div><!-- End .products -->
+
+                        <nav aria-label="Page navigation">
+
+                            <ul class="pagination justify-content-center">
+                                
+                                <!-- <li class="page-item disabled">
+                                    <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
+                                        <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                                    </a>
+                                </li>
+                                <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item-total">of 6</li>
+                                <li class="page-item">
+                                    <a class="page-link page-link-next" href="#" aria-label="Next">
+                                        Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                    </a>
+                                </li> -->
+
+
+                                
+                            </ul>
+                        </nav>
+                    </div><!-- End .col-lg-9 -->
+
+                    <aside class="col-lg-3 order-lg-first">
+
+                        <div class="sidebar sidebar-shop">
+
+                            <div class="widget widget-clean">
+
+                                <label>Filters:</label>
+                                <a href="#" class="sidebar-filter-clear" onclick="cleanFilters()" id="clean">Clean All</a>
+
+                            </div><!-- End .widget widget-clean -->
+
+                            <div class="widget widget-collapsible">
+                                
+                               
+
+                                
+
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+                                            Category
+                                        </a>
+                                    </h3>
+                                    <!-- End .widget-title -->
+                                
+                                    <% categoryData.forEach(val => { %>
+                                        <div class="form-check">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault_<%= val._id %>" onclick="categoryFilter('<%= val._id %>')" />
+                                                <label class="form-check-label" for="flexSwitchCheckDefault_<%= val._id %>"><%= val.name %></label>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                </div>
+                                <!-- End .widget -->
+                                
+
+
+
+
+
+
+                            <!--  <div class="widget widget-collapsible">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true" aria-controls="widget-3">
+                                        Colour
+                                    </a>
+                                </h3>End .widget-title
+
+                                <div class="collapse show" id="widget-3">
+                                    <div class="widget-body">
+                                        <div class="filter-colors">
+                                            <a href="#" style="background: #b87145;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" style="background: #f0c04a;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" style="background: #333333;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" class="selected" style="background: #cc3333;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" style="background: #3399cc;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" style="background: #669933;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" style="background: #f2719c;"><span class="sr-only">Color Name</span></a>
+                                            <a href="#" style="background: #ebebeb;"><span class="sr-only">Color Name</span></a>
+                                        </div>End .filter-colors
+                                    </div>End .widget-body
+                                </div>End .collapse
+                            </div>End .widget -->
+
+                            
+
+                            
+
+                     
+                                    <!--filterss-->
+                            <div class="widget widget-collapsible">
+
+                                <h3 class="widget-title">
+
+                                    <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
+                                        Sort Items
+                                    </a>
+
+                                </h3><!-- End .widget-title -->
+
+                                <div class="collapse show" id="widget-5">
+
+                                    <div class="widget-body">
+
+                                    <div class="filter-price">
+
+                                        <div class="form-check">
+                                            
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="newArrivals()" id="newArrivals">
+
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            new Arrivals
+                                        </label>
+                                        </div>
+
+                                        <div class="form-check">
+
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="aAzZ()" id="aAzZ">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            aA - zZ
+                                        </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="zZaA()" id="zZaA">
+
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            zZ - aA
+                                        </label>
+
+                                        </div>
+
+                                        <div class="form-check">
+
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="lowTohigh()" id="lowTohigh">
+
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Low to High
+                                        </label>
+
+                                        </div>
+
+                                        <div class="form-check">
+
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="highTolow()" id="highTolow">
+
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            High to Low
+                                        </label>
+
+                                        </div>
+                                        <div class="form-check">
+
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="highTolow()" id="Averageratings ">
+
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Average ratings 
+                                        </label>
+
+                                        </div>
+                                        <div class="form-check">
+
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="lowTohigh()" id="Featured ">
+
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Featured 
+                                        </label>
+
+                                        </div>
+
+                                    </div><!-- End .filter-price -->
+
+                                </div><!-- End .widget-body -->
+
+                                </div><!-- End .collapse -->
+
+                            </div><!-- End .widget -->
+
+                        </div><!-- End .sidebar sidebar-shop -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <!-- Connect Footer -->
+ 
+    <!-- Connect Footer -->
+    
+</div>
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<!--Connect Mobaile View-->
+<%- include('../layouts/mobileView.ejs') %>
+<!--Connect Mobaile View-->
+
+<!-- Plugins JS File -->
+</script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery.hoverIntent.min.js"></script>
+<script src="assets/js/jquery.waypoints.min.js"></script>
+<script src="assets/js/superfish.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- Main JS File -->
+<script src="assets/js/main.js"></script>
+
+<script>
+
+//  Add Cart
+
+function addCart(id , user){
+
+if(user == 'false'){
+
+    window.location.href = '/login'
+
+} else {
+
+    fetch(`/addCart?id=${id}` , {method : 'post'})
+
+    .then(res => res.json())
+
+        .then(data =>{
+
+            cartAction();	//	Cart Count
+            
+            if(data.exist){
+                    
+                const Toast = Swal.mixin({
+
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+
+                    didOpen: (toast) => {
+
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+
+                });
+                
+                Toast.fire({
+
+                    icon: "warning",
+                    title: "Already Added"
+
+                });
+
+            }else if(data.success){
+                            
+                const Toast = Swal.mixin({
+
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+                Toast.fire({
+
+                    icon: "success",
+                    title: "Added TO Cart"
+                    
+                });
+            }
+
+
+        })
+
+}
+
+};
+
+//  Search :-
+
+function search(val){
+
+    const cards = document.getElementById('cards')
+    const result = document.getElementById('result')
+
+    //sending the value to back
+
+    fetch('/searchProduct',{
+
+        method:'put',
+
+        headers:{'Content-Type':'application/json'},
+
+    body:JSON.stringify({items:val.value})})
+    
+    //after the result
+
+    .then(res => res.json())
+
+    .then(data =>{
+
+        if(data.length==0){
+
+            result.innerHTML='Could not find that product'
+            result.classList.add('text-danger')
+            result.classList.add('justify-content-center')
+
+        }else{
+
+            result.classList.remove('justify-content-center')
+
+            result.innerHTML= `${data.map((product,i) => (`
+                
+            <div id="cards"class="col-6 col-md-4 col-lg-4">
+                
+            <div class="product product-7 text-center">
+                
+            <figure class="product-media">
+
+                <a href='/productDetails?id=${product._id}'>
+                    <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                </div><!-- End .product-action-vertical -->
+
+                <input hidden value="${product.stock}" id="stock">
+
+                <div class="product-action">
+                    <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                </div><!-- End .product-action -->
+
+            </figure><!-- End .product-media -->
+
+            <div class="product-body">
+
+                <div class="product-cat">
+                    <a href="#">${product.name}</a>
+                </div><!-- End .product-cat -->
+
+                <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                <div class="product-price">
+                    $${product.price}.00
+                </div><!-- End .product-price -->
+
+                <div class="ratings-container">
+
+                    <div class="ratings">
+                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                    </div><!-- End .ratings -->
+
+                </div><!-- End .rating-container -->
+
+            </div><!-- End .product-body -->
+
+        </div><!-- End .product -->
+
+    </div>
+
+        `)).join('')}`
+
+    }
+
+});
+
+};
+
+//	Price Filter :-
+
+function priceFilter(){
+
+const min = document.getElementById('min-price').value
+const max = document.getElementById('max-price').value
+
+const result = document.getElementById('result')
+const disErr = document.getElementById('disErr')
+
+fetch(`/priceFilter` , {method : 'put' , headers : {'Content-Type':'application/json'} , body : JSON.stringify({min , max})})
+
+.then(res => (res.json()))
+
+.then(data => {
+
+    if(data.fail == 'failed'){
+        
+        disErr.textContent = 'Put Price!!!'
+
+    } else if(data.success.length == 0) {
+        
+        result.innerHTML='Could not find that product'
+        result.classList.add('text-danger')
+        result.classList.add('justify-content-center')
+
+    } else {
+
+        disErr.innerHTML = ''
+
+        result.classList.remove('justify-content-center')
+
+        result.innerHTML= `${data.success.map((product,i) => (`
+                
+            <div id="cards"class="col-6 col-md-4 col-lg-4">
+                
+            <div class="product product-7 text-center">
+                
+            <figure class="product-media">
+
+                <a href='/productDetails?id=${product._id}'>
+                    <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                </a>
+
+                <div class="product-action-vertical">
+                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                </div><!-- End .product-action-vertical -->
+
+                <input hidden value="${product.stock}" id="stock">
+
+                <div class="product-action">
+                    <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                </div><!-- End .product-action -->
+
+            </figure><!-- End .product-media -->
+
+            <div class="product-body">
+
+                <div class="product-cat">
+                    <a href="#">${product.name}</a>
+                </div><!-- End .product-cat -->
+
+                <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                <div class="product-price">
+                    $${product.price}.00
+                </div><!-- End .product-price -->
+
+                <div class="ratings-container">
+
+                    <div class="ratings">
+                        <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
+                    </div><!-- End .ratings -->
+
+                </div><!-- End .rating-container -->
+
+            </div><!-- End .product-body -->
+
+        </div><!-- End .product -->
+
+    </div>
+
+        `)).join('')}`
+
+    }
+
+
+})
+
+
+}
+
+//  Add Wishlist
+
+function addWishlist(id){
+
+fetch(`/addWishlist?id=${id}` , {method : 'POST'})
+
+.then(res => res.json()) 
+
+.then(data => {
+
+   if(data.suc){
+
+        const Toast = Swal.mixin({
+
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+
+            didOpen: (toast) => {
+
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+
+        });
+          
+        Toast.fire({
+
+            icon: "warning",
+            title: "Already Added"
+
+        });
+
+    } else if(data.succ){
+
+        const Toast = Swal.mixin({
+
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+
+        });
+
+        Toast.fire({
+
+            icon: "success",
+            title: "Added TO Wishlist"
+                
+        });
+
+
+    }
+
+})
+
+};
+
+//	aA zZ Pro Name :-
+
+function newArrivals(){
+
+const item = document.getElementById('newArrivals');
+const result = document.getElementById('result')
+
+const status = true
+
+if(item.checked){
+
+    fetch(`/newArrivals` , {method : 'put' , headers:{'Content-Type':'application/json'} , body : JSON.stringify({status})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        if(data){
+
+              result.classList.remove('justify-content-center')
+
+                result.innerHTML= `${data.map((product,i) => (`
+                    
+                    <div id="cards"class="col-6 col-md-4 col-lg-4">
+                        
+                    <div class="product product-7 text-center">
+                        
+                    <figure class="product-media">
+
+                        <a href='/productDetails?id=${product._id}'>
+                            <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                        </a>
+
+                            <span class="product-label label-new">New</span>
+
+                        <div class="product-action-vertical">
+                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                        </div><!-- End .product-action-vertical -->
+
+                        <input hidden value="${product.stock}" id="stock">
+
+                        <div class="product-action">
+                            <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                        </div><!-- End .product-action -->
+
+                    </figure><!-- End .product-media -->
+
+                    <div class="product-body">
+
+                        <div class="product-cat">
+                            <a href="#">${product.name}</a>
+                        </div><!-- End .product-cat -->
+
+                        <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                        <div class="product-price">
+                            $${product.price}.00
+                        </div><!-- End .product-price -->
+
+                        <div class="ratings-container">
+
+                                                    <div class="ratings">
+
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+
+                                                    </div><!--End .ratings-->
+                                                    
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+
+                                                </div><!--End .rating-container-->
+
+                    </div><!-- End .product-body -->
+
+                    </div><!-- End .product-body -->
+
+                </div><!-- End .product -->
+
+                </div>
+
+            `)).join('')}`
+
+        }
+    })
+
+} else {
+
+    $('#reloadDiv').load('/product #reloadDiv')
+    
+}
+
+};
+//	aA zZ Pro Name :-
+
+function aAzZ(){
+
+const item = document.getElementById('aAzZ');
+const result = document.getElementById('result')
+
+const status = true
+
+if(item.checked){
+
+    fetch(`/aAzZ` , {method : 'put' , headers:{'Content-Type':'application/json'} , body : JSON.stringify({status})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        if(data){
+
+              result.classList.remove('justify-content-center')
+
+                result.innerHTML= `${data.map((product,i) => (`
+                    
+                    <div id="cards"class="col-6 col-md-4 col-lg-4">
+                        
+                    <div class="product product-7 text-center">
+                        
+                    <figure class="product-media">
+
+                        <a href='/productDetails?id=${product._id}'>
+                            <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                        </a>
+
+                            <span class="product-label label-new">New</span>
+
+                        <div class="product-action-vertical">
+                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                        </div><!-- End .product-action-vertical -->
+
+                        <input hidden value="${product.stock}" id="stock">
+
+                        <div class="product-action">
+                            <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                        </div><!-- End .product-action -->
+
+                    </figure><!-- End .product-media -->
+
+                    <div class="product-body">
+
+                        <div class="product-cat">
+                            <a href="#">${product.name}</a>
+                        </div><!-- End .product-cat -->
+
+                        <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                        <div class="product-price">
+                            $${product.price}.00
+                        </div><!-- End .product-price -->
+
+                        <div class="ratings-container">
+
+                                                    <div class="ratings">
+
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+
+                                                    </div><!--End .ratings-->
+                                                    
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+
+                                                </div><!--End .rating-container-->
+
+                    </div><!-- End .product-body -->
+
+                    </div><!-- End .product-body -->
+
+                </div><!-- End .product -->
+
+                </div>
+
+            `)).join('')}`
+
+        }
+    })
+
+} else {
+
+    $('#reloadDiv').load('/product #reloadDiv')
+    
+}
+
+};
+
+//	zZ aA Pro Name :-
+
+function zZaA(){
+
+const item = document.getElementById('zZaA');
+const result = document.getElementById('result')
+
+const status = true
+
+if(item.checked){
+
+    fetch(`/zZaA` , {method : 'put' , headers:{'Content-Type':'application/json'} , body : JSON.stringify({status})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        if(data){
+
+              result.classList.remove('justify-content-center')
+
+                result.innerHTML= `${data.map((product,i) => (`
+                    
+                    <div id="cards"class="col-6 col-md-4 col-lg-4">
+                        
+                    <div class="product product-7 text-center">
+                        
+                    <figure class="product-media">
+
+                        <a href='/productDetails?id=${product._id}'>
+                            <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                        </a>
+
+                            <span class="product-label label-new">New</span>
+
+                        <div class="product-action-vertical">
+                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                        </div><!-- End .product-action-vertical -->
+
+                        <input hidden value="${product.stock}" id="stock">
+
+                        <div class="product-action">
+                            <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                        </div><!-- End .product-action -->
+
+                    </figure><!-- End .product-media -->
+
+                    <div class="product-body">
+
+                        <div class="product-cat">
+                            <a href="#">${product.name}</a>
+                        </div><!-- End .product-cat -->
+
+                        <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                        <div class="product-price">
+                            $${product.price}.00
+                        </div><!-- End .product-price -->
+
+                        <div class="ratings-container">
+
+                                                    <div class="ratings">
+
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+
+                                                    </div><!--End .ratings-->
+                                                    
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+
+                                                </div><!--End .rating-container-->
+
+                    </div><!-- End .product-body -->
+
+                    </div><!-- End .product-body -->
+
+                </div><!-- End .product -->
+
+                </div>
+
+            `)).join('')}`
+
+        }
+    })
+
+} else {
+
+    $('#reloadDiv').load('/product #reloadDiv')
+    
+}
+
+}
+
+//	Price Low to High :-
+
+function lowTohigh(){
+
+    console.log('weweweee');
+const item = document.getElementById('lowTohigh');
+const result = document.getElementById('result')
+const status = true
+
+if(item.checked){
+
+    fetch(`/lowTohigh` , {method : 'put' , headers:{'Content-Type':'application/json'} , body : JSON.stringify({status})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        if(data){
+
+              result.classList.remove('justify-content-center')
+
+                result.innerHTML= `${data.map((product,i) => (`
+                    
+                    <div id="cards"class="col-6 col-md-4 col-lg-4">
+                        
+                    <div class="product product-7 text-center">
+                        
+                    <figure class="product-media">
+
+                        <a href='/productDetails?id=${product._id}'>
+                            <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                        </a>
+
+                            <span class="product-label label-new">New</span>
+
+                        <div class="product-action-vertical">
+                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                        </div><!-- End .product-action-vertical -->
+
+                        <input hidden value="${product.stock}" id="stock">
+
+                        <div class="product-action">
+                            <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                        </div><!-- End .product-action -->
+
+                    </figure><!-- End .product-media -->
+
+                    <div class="product-body">
+
+                        <div class="product-cat">
+                            <a href="#">${product.name}</a>
+                        </div><!-- End .product-cat -->
+
+                        <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                        <div class="product-price">
+                            $${product.price}.00
+                        </div><!-- End .product-price -->
+
+                        <div class="ratings-container">
+
+                                                    <div class="ratings">
+
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+
+                                                    </div><!--End .ratings-->
+                                                    
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+
+                                                </div><!--End .rating-container-->
+
+                    </div><!-- End .product-body -->
+
+                </div><!-- End .product -->
+
+                </div>
+
+            `)).join('')}`
+
+        } 
+
+    })
+
+} else {
+
+    $('#reloadDiv').load('/product #reloadDiv')
+
+}
+
+};
+
+//	Price High to Low :-
+
+function highTolow(){
+
+const item = document.getElementById('highTolow')
+const result = document.getElementById('result')
+
+const status = true
+
+if(item.checked){
+
+    fetch('/highTolow' , {method : 'put' , headers : {'Content-Type':'application/json'} , body : JSON.stringify({status})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        if(data){
+
+              result.classList.remove('justify-content-center')
+
+                result.innerHTML= `${data.map((product,i) => (`
+                    
+                    <div id="cards"class="col-6 col-md-4 col-lg-4">
+                        
+                    <div class="product product-7 text-center">
+                        
+                    <figure class="product-media">
+
+                        <a href='/productDetails?id=${product._id}'>
+                            <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                        </a>
+
+                            <span class="product-label label-new">New</span>
+
+                        <div class="product-action-vertical">
+                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                        </div><!-- End .product-action-vertical -->
+
+                        <input hidden value="${product.stock}" id="stock">
+
+                        <div class="product-action">
+                            <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                        </div><!-- End .product-action -->
+
+                    </figure><!-- End .product-media -->
+
+                    <div class="product-body">
+
+                        <div class="product-cat">
+                            <a href="#">${product.name}</a>
+                        </div><!-- End .product-cat -->
+
+                        <h3 class="product-title"><a href="/products">${product.category.name}</a></h3><!-- End .product-title -->
+
+                        <div class="product-price">
+                            $${product.price}.00
+                        </div><!-- End .product-price -->
+
+                        <div class="ratings-container">
+
+                                                    <div class="ratings">
+
+                                                        <div class="ratings-val" style="width: 20%;"></div>
+
+                                                    </div><!--End .ratings-->
+                                                    
+                                                    <span class="ratings-text">( 2 Reviews )</span>
+
+                                                </div><!--End .rating-container-->
+
+                    </div><!-- End .product-body -->
+
+                </div><!-- End .product -->
+
+                </div>
+
+            `)).join('')}`
+
+        } 
+
+    })
+
+} else {
+
+    $('#reloadDiv').load('/product #reloadDiv')
+
+}
+
+}
+
+//	Clean All Filters :-
+
+function cleanFilters(){
+
+const val = true
+
+if(val == true){
+
+    $('#reloadDiv').load('/product #reloadDiv')
+
+}
+
+}
+
+
+
+// filter on category
+
+ 
+function categoryFilter(cateId) {
+  const checkbox = document.getElementById(`flexSwitchCheckDefault_${cateId}`);
+  const result = document.getElementById('result');
+
+
+  const isChecked = checkbox.checked;
+
+  fetch('/filterByCategory', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cateId, isChecked }) 
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.length !== undefined) {
+      console.log(data);
+      
+      result.classList.remove('justify-content-center');
+      if (data.length === 0) {
+   
+        result.innerHTML = '<p>No products found for the selected category.</p>';
+      } else {
+        result.innerHTML = data.map(product => `
+          <div id="cards" class="col-6 col-md-4 col-lg-4">
+            <div class="product product-7 text-center">
+              <figure class="product-media">
+                <a href='/productDetails?id=${product._id}'>
+                  <img src="/productImage/${product.image[0]}" alt="Product image" class="product-image">
+                </a>
+                <span class="product-label label-new">New</span>
+                <div class="product-action-vertical">
+                  <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                </div>
+                <input hidden value="${product.stock}" id="stock">
+                <div class="product-action">
+                  <button onclick="addCart('${product._id}')" id="btns" class="btn-product btn-cart border-0 " style="cursor: pointer;"><span id="crt">add to cart</span></button>
+                </div>
+              </figure>
+              <div class="product-body">
+                <div class="product-cat">
+                  <a href="#">${product.name}</a>
+                </div>
+                <h3 class="product-title"><a href="/products">${product.category.name}</a></h3>
+                <div class="product-price">
+                  $${product.price}.00
+                </div>
+                <div class="ratings-container">
+                  <div class="ratings">
+                    <div class="ratings-val" style="width: 20%;"></div>
+                  </div>
+                  <span class="ratings-text">( 2 Reviews )</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    } else {
+      result.innerHTML = '<p>Error fetching products.</p>';
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    result.innerHTML = '<p>Error fetching products.</p>';
+  });
+}
+
+
+
+
+
+
+
+
+</script>
+
+<%- include('../layouts/footer1') %>

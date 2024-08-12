@@ -1,0 +1,129 @@
+<header class="header">
+           
+    <div class="header-middle sticky-header">
+        <div class="container">
+            
+            <div class="header-left">
+                <button class="mobile-menu-toggler">
+                    <span class="sr-only">Toggle mobile menu</span>
+                    <i class="icon-bars "></i>
+                </button>
+            
+                <a href="index.html" class="logo">
+                    <img src="/assets/images/logo.png" alt="Jersify Logo" width="105" height="25">
+                </a>
+            
+                <nav class="main-nav">
+                    <ul class="menu sf-arrows">
+                        <li class="megamenu-container active">
+                            <a href="/" class="">Home</a>
+            
+                           
+                        </li>
+                        <li>
+                            <a href="/product" class="">Shop</a>
+            
+                        
+                        </li>
+                        <li>
+
+                            <a href="#" class="sf-with-ul" style="padding-right: 11px;">Category</a>
+                            
+                             <ul class="p-2" style="border-radius: 10px;">
+
+                                  <% categoryData.forEach(val => { %>
+
+                                    <li><a href="/category/<%= val.name %>"><%= val.name %></a></li>
+                                        
+                                <%  }); %>
+                          
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="/contact" class="">Contact</a>
+            
+                          
+                        </li>
+                        <li>
+                            <a href="/about" class="">About</a>
+            
+                            
+                        </li>
+                        
+                    </ul><!-- End .menu -->
+                </nav><!-- End .main-nav -->
+            </div><!-- End .header-left -->
+            
+
+            
+
+                <div class="header-right">
+                    <div class="s header-search header-search-extended header-search-visible">
+                        <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                        <form action="#" method="get">
+                            <div class="header-search-wrapper">
+                                <label for="q" class="sr-only">Search</label>
+                                <input type="search" class="form-control" name="q" id="q" oninput="search(this)" placeholder="Search product ..." required>
+                                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                            </div><!-- End .header-search-wrapper -->
+                        </form>
+                    </div><!-- End .header-search -->
+
+                    <div class="header-right">
+                        <% if(locals.login) { %>
+                        <a href="/profile" class="logo" style="padding-right: 10px;padding-top: 10px;">
+                            <i class="fa-solid fa-user" style="font-size: 20px;"></i>
+                        </a>
+                        <% } %>
+
+
+                <a href="/wish" class="wishlist-link pb-1 ">
+                    <i class="icon-heart-o pt-1"></i>
+                </a>
+
+                <div class="dropdown cart-dropdown">
+                    <a href="/cart" class="dropdown-toggle" role="button">
+                        <i class="icon-shopping-cart"></i>
+                        <span class="cart-count" id="cart">1</span>
+                    </a>
+
+                  
+                </div><!-- End .cart-dropdown -->
+
+            </div><!-- End .header-right -->
+        </div><!-- End .container -->
+    </div><!-- End .header-middle -->
+</header><!-- End .header -->
+
+
+<script>
+
+    //  Cart Count :-
+
+    cartAction()
+    
+    function cartAction(){
+
+        const cartt = document.getElementById('cart')
+
+        fetch('/cartAction' , {method : 'post'}).then(data=>data.json()).then(data =>{
+
+            cartt.textContent = data.success || 0
+
+            
+        })
+
+    };
+
+</script>
+
+<style>
+
+    .s{
+
+        display: flex;
+        margin-left: 10rem;
+
+    }
+</style>

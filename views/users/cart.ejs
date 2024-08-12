@@ -1,0 +1,338 @@
+<%- include('../layouts/header.ejs')-%> 
+
+<%- include('../layouts/navbar.ejs')-%>
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                
+                <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content" id="reloadDiv">
+        <div class="cart">
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-9">
+                        <table class="table table-cart table-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+
+
+                            <% if (userProduct?.product?.length >= 1) { %>
+                            
+                                <% userProduct.product.forEach((product,index)=>{ %>
+                                <tbody>
+                                    <tr>
+                                        <td class="product-col">
+                                            <div class="product">
+                                                <figure class="product-media">
+                                                    <a href="#">
+                                                        <img src="/productImage/<%=product.productId.image[0]%>" alt="Product image">
+                                                    </a>
+                                                </figure>
+
+                                                <h3 class="product-title">
+                                                    <a href=""><%= product.productId.name %></a>
+                                                </h3>
+                                            </div>
+                                        </td>
+                                        <td class="price-col"><%= product.productId.price %></td>
+                                                                                            
+                                            <td class="quantity-col">
+                                               <div class="cart-product-quantity">
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <button class="b-dec" type="button" onclick="decreaseQuantity(this, '<%= product.productId.price %>', '<%= product.productId._id %>', '<%= locals.userProduct._id %>', '<%= product.productId.stock %>')">-</button>
+        </div>
+        <input onfocus="notFocus(this)" type="number" readonly class="form-control text-center"
+            onchange="stock(this, '<%= product.productId.price %>', '<%= product.productId._id %>', '<%= locals.userProduct._id %>'); stockCheck(this, '<%= product.productId.stock %>')"
+            value="<%= product.quantity %>" min="1" max="<%= product.productId.stock %>" step="1" data-decimals="0" required>
+            <button class="b-inc" type="button" onclick="increaseQuantity(this, '<%= product.productId.price %>', '<%= product.productId._id %>', '<%= locals.userProduct._id %>', '<%= product.productId.stock %>')">+</button>
+        <div class="input-group-append">
+        </div>
+    </div>
+</div>
+
+<script>
+    function increaseQuantity(button, price, productId, userId, maxStock) {
+        const input = button.closest('.input-group').querySelector('input[type="number"]');
+        let value = parseInt(input.value);
+        if (value < maxStock) {
+            input.value = value + 1;
+            stock(input, price, productId, userId);
+            stockCheck(input, maxStock);
+        }
+    }
+
+    function decreaseQuantity(button, price, productId, userId, maxStock) {
+        const input = button.closest('.input-group').querySelector('input[type="number"]');
+        let value = parseInt(input.value);
+        if (value > 1) {
+            input.value = value - 1;
+            stock(input, price, productId, userId);
+            stockCheck(input, maxStock);
+        }
+    }
+</script>
+                                            </td>
+                                            
+                                            <input type="text" id="stockk<%= product.productId.stock %>" value="<%= product.productId.stock %>" hidden>
+                                        
+                                        
+
+                                        <td class="total-col" id='price<%= product.productId._id %>'><%= product.price %></td>
+
+
+                                        <td class="remove-col"><button class="btn-remove" onclick="deleteCart('<%= product.productId._id %>'), removeCoupen()"><i class="icon-close"></i></button></td>
+
+                                        
+
+                                    </tr>
+                                    
+                                </tbody>
+                        <% }) %>
+
+                       
+                        </table>
+                        
+<script>
+    function notFocus(e){
+        e.blur()
+    }
+</script>
+                        <div class="cart-bottom">
+                            
+
+                            <a href="/cart" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
+                        </div><!-- End .cart-bottom -->
+                    </div><!-- End .col-lg-9 -->
+                    <aside class="col-lg-3">
+                        <div class="summary summary-cart bg-white ">
+                            <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+                            <table class="table table-summary">
+                                <tbody>
+                                    <tr class="summary-subtotal">
+                                        <td>Subtotal:</td>
+                                        <td id="sub-total"><%= cartData.Total_price %>.00</td>
+                                    </tr><!-- End .summary-subtotal -->
+                                    <!-- <tr class="summary-shipping">
+                                        <td>Shipping:</td>
+                                        <td>&nbsp;</td>
+                                    </tr> -->
+
+                                    <!-- <tr class="summary-shipping-row">
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+                                                <label class="custom-control-label" for="free-shipping">Free Shipping</label>
+                                            </div>End .custom-control
+                                        </td>
+                                        <td>$0.00</td>
+                                    </tr>End .summary-shipping-row -->
+
+                                    <!-- <tr class="summary-shipping-row">
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+                                                <label class="custom-control-label" for="standart-shipping">Standart:</label>
+                                            </div>End .custom-control
+                                        </td>
+                                        <td>$10.00</td>
+                                    </tr>End .summary-shipping-row -->
+
+                                    <!-- <tr class="summary-shipping-row">
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
+                                                <label class="custom-control-label" for="express-shipping">Express:</label>
+                                            </div>End .custom-control
+                                        </td>
+                                        <td>$20.00</td>
+                                    </tr>End .summary-shipping-row -->
+
+                                    <!-- <tr class="summary-shipping-estimate">
+                                        <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
+                                        <td>&nbsp;</td>
+                                    </tr>End .summary-shipping-estimate -->
+
+                                    <tr class="summary-total">
+                                        <td>Total:</td>
+                                        <td id="total"><%= cartData.Total_price %>.00</td>
+                                    </tr><!-- End .summary-total -->
+                                </tbody>
+                            </table><!-- End .table table-summary -->
+
+                            <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                        </div><!-- End .summary -->
+
+                        <a href="category.html" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+            <% } else { %>
+
+                <div class="mt-5 mb-5 ">
+                    <p class="text-center text-primary">Cart is Empty</p>
+                </div>
+
+            <% } %>
+        </div><!-- End .cart -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<!-- Connect Footer -->
+
+</div><!-- End .page-wrapper -->
+
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+
+<%- include('../layouts/mobileView.ejs') %>
+
+
+
+<script>
+
+
+function stock(e,price,proId,cartId){
+    const Tprice= document.getElementById(`price${proId}`)
+    const Total= document.getElementById('total')
+    const sub= document.getElementById('sub-total')
+    
+    fetch('/cartUpdate',{
+        method: 'PUT',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ quantity: e.value,proId,cartId })
+    }).then(res=>res.json()).then(data=>{
+        if(data.success){
+            Tprice.textContent=`$${e.value*price}`;
+            Total.textContent=`$${data.success}`;
+            sub.textContent=`$${data.success}`;
+            
+        }
+    })
+    .then((data)=>{
+        $('#reloadDiv').load('/cart #reloadDiv')
+    })
+        }
+        
+function deleteCart(id){
+            
+fetch(`/deleteCart?id=${id}` , {method : 'PUT'})
+
+.then(res => res.json())
+
+.then(data => {
+    
+    if(data.succ){
+        
+        Swal.fire({
+            
+            title: "Successfully",
+            text: "Cart Deleted Successfully",
+            icon: "success"
+        });
+
+        
+        
+        $('#reloadDiv').load('/cart #reloadDiv')
+        
+    } else if(data.fail){
+
+        Swal.fire({
+            title: "Error",
+            text: "Somthing Went Wrong!",
+            icon: "error"
+        });
+        
+    }
+    
+})
+
+}
+
+
+function stockCheck(val , id){
+
+const pro = document.getElementById(`stockk${id}`).value
+
+if(pro == val.value){
+    
+    Swal.fire("Limit Exeed!");
+    
+}
+
+}
+function removeCoupen(){
+
+fetch(`/removeCop` , {method : 'put'})
+
+.then(res => res.json())
+
+.then(data => {
+
+    console.log("VAVAVAVAVAVVAV");
+
+    if(data.succ){
+
+        window.location.reload()
+
+    }
+
+})
+
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery.hoverIntent.min.js"></script>
+<script src="assets/js/jquery.waypoints.min.js"></script>
+<script src="assets/js/superfish.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- Main JS File -->
+<script src="assets/js/main.js"></script>
+
+
+<style>
+
+.b-inc {
+
+    /* background-color: red; */
+    border: hidden;
+    padding: 1px;
+    
+}
+
+.b-dec{
+    
+    border: hidden;
+    /* background-color: green; */
+    padding: 1.8px;
+
+}
+
+</style>
+
+<%- include('../layouts/footer1.ejs')-%>

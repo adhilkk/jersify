@@ -1,0 +1,533 @@
+<%- include('../layouts/header') %>
+
+<div class="page-wrapper" >
+
+  <%- include('../layouts/navbar.ejs') %>
+
+  <main class="main">
+
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">My Profile</h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="">Home</a></li>
+                    <!-- <li class="breadcrumb-item"><a href="#"></a></li> -->
+                    <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+      <section class="">
+
+        <div class="container-fluid  py-5 h-100 position-relative ">
+
+          <div class="row d-flex align-items-start  h-100" style="gap: 10rem;">
+
+            <aside class="col-md-2 col-lg-2  ">
+
+              <!-- profile nave -->
+
+              <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+
+                <li class="nav-item">
+                  <a class="nav-link active" id="tab-orders-link" href="/orders" aria-selected="true">Back to Orders</a>
+                </li>
+
+              </ul>
+
+              <br>
+
+              <% if (order.products[0].orderProStatus == 'delivered') { %>
+                
+                <div class="mb-2">
+    
+                  <button class="btn border"><a href="/downloadInvoice?id=<%= order._id %>">Download Invoice</a></button>
+    
+                </div>
+
+            <%  } %>
+
+              <div class="card" style="border:.1rem solid #ebebeb !important; border-radius: 8px; padding-left: 20px;">
+
+                <div class="card-body">
+
+                  <div class="hedaer d-flex align-items-center justify-content-center w-100">
+
+                    <h5 class="card-title mb-2">
+
+                      address
+
+                    </h5>
+
+                  </div>
+
+                  <div class="mb-3">
+
+                    <label class="form-label"> name:-&nbsp;<%= order?.deliveryAddress?.name %></label>
+
+                  </div>
+
+                  <div class="mb-3">
+
+                    <label class="form-label"> city:-&nbsp;<%= order?.deliveryAddress?.city %></label>
+
+                  </div>
+
+                  <div class="mb-3">
+
+                    <label class="form-label"> state:-&nbsp;<%= order?.deliveryAddress?.state %></label>
+
+                  </div>
+
+                  <div class="mb-3">
+
+                    <label class="form-label"> pincode:-&nbsp;<%= order?.deliveryAddress?.pincode %></label>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </aside>
+
+            <aside class="col col-lg-6 mb-4 mb-lg-0">
+                
+              <div class="row w-100" style="gap: 2rem;">
+
+                <div class="container">
+
+                  <table class="table table-wishlist table-mobile text-center" style="width: 960px;">
+                    
+                    <thead>
+
+                      <tr>
+
+                        <th>Product</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity </th>
+                        <th>Delivery </th>
+                        <th>Total Price</th>
+                        <th class="<%= order.products[0].orderProStatus == 'canceled' ? 'disabled' : '' %>"><%= order.products[0].orderProStatus == 'canceled' ? '' : 'options' %></th>
+                        
+                      </tr>
+
+                    </thead>
+
+                    <tbody class="text-center ">
+
+                    <% if(locals.order) { %>
+
+                      <% order.products.slice().reverse().forEach((product, index)=>{ %>
+
+                        <% if (product.orderProStatus == 'canceled') { %>
+
+                           <tr>
+
+                            <td class="product-col">
+
+                              <figure class="product-media">
+
+                                <a href="/productDetails?proId=<%= product.productId._id %>">
+
+                                  <img src="/productImage/<%= product.productId.image[0] %> " alt="Product image">
+
+                                </a>
+                                
+                              </figure>
+
+                            </td>
+
+                            <td>
+
+                              <a href="/productDetails?proId=<%= product.productId._id %>" style="text-decoration:line-through;">
+
+                                <%= product.productId.name %>
+
+                              </a>
+
+                              <!-- End .product -->
+                            </td>
+
+                            <td class="stock-col ms-3 " style="text-decoration:line-through;">₹<%= product.productId.price %></td>
+
+                            <td class="stock-col">
+                              
+                              <span class="in-stock" style="text-decoration:line-through;">
+
+                                <%=product.quantity %>
+
+                              </span>
+                            
+                            </td>
+
+                            <td>
+
+                              <span class="<%= product.orderProStatus == 'canceled' ? 'text-danger' : 'text-primary' %>"><%= product.orderProStatus %></span>
+                              
+                            </td>
+
+                            <td class="price-col" style="text-decoration:line-through;">
+
+                              ₹<%= locals.order.orderAmount %>
+
+                            </td>
+
+                          </tr>
+                            
+                        <% } else { %>
+
+                          <tr>
+
+                            <td class="product-col">
+
+                              <figure class="product-media">
+
+                                <a href="/productDetails?proId=<%= product.productId._id %>">
+
+                                  <img src="/productImage/<%= product.productId.image[0] %> " alt="Product image">
+
+                                </a>
+                                
+                              </figure>
+
+                            </td>
+
+                            <td>
+
+                              <a href="/productDetails?proId=<%= product.productId._id %>">
+
+                                <%= product.productId.name %>
+
+                              </a>
+
+                              <!-- End .product -->
+                            </td>
+
+                            <td class="stock-col ms-3 ">₹<%= product.price %></td>
+
+                            <td class="stock-col">
+                              
+                              <span class="in-stock">
+
+                                <%= product.quantity %>
+
+                              </span>
+                            
+                            </td>
+
+                            <td>
+
+                            <span class="<%= product.orderProStatus === 'canceled' ? 'text-danger' : ( product.orderProStatus === 'returned' ? 'text-success' : 'text-primary') %>"><%= product.orderProStatus %></span>
+                              
+                            </td>
+
+                            <td class="price-col">
+
+                              ₹<%=locals.order.orderAmount %> 
+
+                              <p class="fs-6 <%= order.coupenDis <= 0 ? '' : 'text-success' %>"><%= order.coupenDis <= 0 ? 'Coupen Applied' : '' %></p>
+                              
+                            </td>
+
+
+                           <td>
+                             
+                              <div class="d-flex align-items-center justify-content-between w-100">
+
+                                <% if (product.orderProStatus == 'payment pending') { %>
+          
+                                      <button type="button" class="btn btn-primary" onclick="razorPayy('<%= order.userId %>' , '<%= order.orderAmount %>' , '<%= order._id %>')">
+
+                                        <span >Place Order</span>
+
+                                      </button>
+          
+
+                                <%  } else { %>
+
+                                  <% if (product.orderProStatus == 'delivered' || product.orderProStatus == 'returned') { %>
+    
+                                    <button <%= product.orderProStatus == 'returned' && 'disabled' %> type="submit" onclick="returnOrd('<%= product.productId._id %>' , '<%= locals.order._id %>' , '<%=  %>' )" style="border-radius: 5px; transition: all ease 0.5s; background-color: #c96;" class="p-3 rounded-3  border-0 text-white <%= product.orderProStatus == 'returned' && 'opacity-50' %>">Return</button>
+                                      
+                                  <% } else if (product.orderProStatus == 'shipped' || product.orderProStatus == 'pending' || product.orderProStatus || 'canceled') { %>
+    
+                                    <button <%= product.orderProStatus == 'canceled' && 'disabled' %>  type="submit" onclick="cancelOrd('<%= product.productId._id %>' , '<%= locals.order._id %>' , '<%= product.price %>')" style="border-radius: 5px; transition: all ease 0.5s; background-color: #c96;" class=" <%= product.orderProStatus == 'canceled' && 'opacity-50' %>  p-3 rounded-3  border-0 text-white">Cancel</button>
+    
+                                  <% }  %>
+
+                                <% } %> 
+
+                              </div>
+                            </td>
+                          </tr>
+
+                      <% } %>
+
+                    <% })} %>
+
+                    </tbody>
+
+                  </table>
+
+                  <% if(locals.order ) {%>
+
+                    <div class="wishlist-share">
+
+                      <div class="social-icons social-icons-sm mb-2">
+
+                        <label class="social-label">Total:</label>
+
+                        ₹<%= locals.order.orderAmount %>
+
+                      </div><!-- End .soial-icons -->
+
+                    </div>
+
+                  <% } %>
+
+                </div>
+
+              </div>
+            </aside>
+          </div>
+
+        </div>
+
+      </section >
+
+      </main> 
+      
+  <!-- Connect Footer -->
+ 
+  <!-- Connect Footer -->
+
+</div>
+
+<button id="scroll-top" title="Back to Top">
+
+  <i class="icon-arrow-up"></i>
+
+</button>
+
+<!--Connect Mobaile View-->
+<%- include('../layouts/mobileView.ejs') %>
+<!--Connect Mobaile View-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Plugins JS File -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery.hoverIntent.min.js"></script>
+<script src="assets/js/jquery.waypoints.min.js"></script>
+<script src="assets/js/superfish.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- Main JS File -->
+<script src="assets/js/main.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+  //  Cancel Order :-
+
+  async function cancelOrd(proId , ordId , price){
+
+    const {value: cancelReason} = await Swal.fire({
+
+      title: "Cancel reason",
+      input: "text",
+      inputLabel: "Cancel reason",
+      showCancelButton: true,
+
+      inputValidator: (value)=>{
+        
+        if(!value){
+
+          return "You need to write something"
+
+        }
+
+      }
+
+    });
+  
+    if(cancelReason){
+
+      Swal.fire({
+
+        title:"succes",
+        text: "Canceled order is success check your wallet",
+        icon: "success"
+
+      }).then(()=>{
+
+        editOrd(proId, ordId , price , cancelReason);
+
+      })
+
+    }
+
+  }
+
+  function editOrd(proId , ordId , price , reason){
+
+    fetch('/cancelOrd' , {method : 'post' , headers : {'Content-Type': 'application/json'} , body : JSON.stringify({proId , ordId , price , reason})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+      if(data.succ ){
+
+        window.location.reload();
+
+      } else if(data.fail) {
+
+        console.log("poyiii");
+
+      }
+
+    })
+
+  }
+
+  //  Return Order :-
+
+  async function returnOrd(proId , ordId , price){
+
+    const {value: cancelReason} = await Swal.fire({
+
+      title: "Return reason",
+      input: "text",
+      inputLabel: "Return reason",
+      showCancelButton: true,
+
+      inputValidator: (value)=>{
+        
+        if(!value){
+
+          return "You need to write something"
+
+        }
+
+      }
+
+    });
+  
+    if(cancelReason){
+
+      Swal.fire({
+
+        title:"succes",
+        text: "Return Request Sended",
+        icon: "success"
+
+      }).then(()=>{
+
+        editReturnOrd(proId, ordId , price , cancelReason);
+
+      })
+
+    }
+
+  }
+
+  function editReturnOrd(proId , ordId , price , reason){
+
+    fetch('/returnOrd' , {method : 'put' , headers : {'Content-Type': 'application/json'} , body : JSON.stringify({proId , ordId , price , reason})})
+
+    .then(res => res.json())
+
+    .then(data => {
+
+      if(data.succ){
+
+        console.log("Kitty");
+
+      } else if (data.fail){
+
+        console.log("Nothing");
+
+      }
+
+    })
+
+  }
+
+//	RazorPay :-
+
+function razorPayy(userId, amount,ordIdd) {
+
+  fetch('/sucRazorpay', {
+
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+
+    body: JSON.stringify({ amount, userId })
+
+  }).then(res => res.json()).then(data => {
+
+      if (data.succes) {
+
+          let options = {
+
+          "key": `${data.key_id}`,
+          "amount": `${data.amount}`,
+          "currency": "INR",
+          "name": "JERSIFY",
+          "order_id": `${data.order_id}`,
+
+          "handler": function (response) {
+
+            fetch('/changeStatus' , {method : 'post' , headers : { 'Content-type': 'application/json' } , body : JSON.stringify({ordIdd})})
+
+            .then(res => res.json())
+
+            .then(data => {
+
+              if(data.suc){
+
+                window.location.reload()
+
+              }
+
+            })
+                                        
+          },
+
+          "profile": {
+
+            "name": `${data.name}`,
+            "email": `${data.email}`
+
+          }
+
+        }
+
+        let razorpayObject = new Razorpay(options);
+
+				//	Payment Failed Area :- 
+
+        razorpayObject.on('payment.failed', (response) => {		
+
+          window.location.reload()
+
+        });
+
+        razorpayObject.open();
+
+      } 
+  })
+
+}
+
+</script>
+
+<%- include('../layouts/footer1') %> 

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jersify</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Jersify">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/logo.png">  
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="/assets/images/logo.png" color="#666666">
+    <link rel="shortcut icon" href="/assets/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Molla">    
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/demos/demo-15.css">
+    <script src="https://kit.fontawesome.com/a28e0bf304.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="header header-5">
+            <div class="header-middle sticky-header">
+                <div class="container-fluid">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+                        <a href="/" class="logo">
+                            <img src="assets/images/logo.png" alt="jersify logo" width="105" height="25">
+                        </a>
+
+                        <nav class="main-nav">
+                            <ul class="menu">
+                                <li class="megamenu-container ">
+                                    <a href="/" class="">Home</a>
+                                </li>
+                                <li>
+                                <a href="/product" class="">Shop</a>
+
+                                </li>
+                                <li>
+
+                                    <a href="#" class="sf-with-ul" style="padding-right: 11px;">Category</a>
+                                    
+                                     <ul class="p-2" style="border-radius: 10px;">
+        
+                                          <% categoryData.forEach(val => { %>
+        
+                                            <li><a href="/category/<%= val.name %>"><%= val.name %></a></li>
+                                                
+                                        <%  }); %>
+                                  
+                                    </ul>
+        
+                                </li>
+                                <li>
+                                    <a href="/contact" class="">Contact</a>
+                                </li>
+                                <li>
+                                    <a href="/about" class="">About</a>
+                                </li>
+                               
+                            </ul><!-- End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <div class="header-search header-search-extended header-search-visible">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="#" method="get">
+                                <div class="header-search-wrapper">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control" name="q" id="q" placeholder="Search product ..." required>
+                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+
+                        <% if(locals.login) { %>
+
+                            <li>
+                                <a style="margin-bottom: 20px; margin-left:20px ;font-size: 20px;" href="/profile" class="logo" >
+                                    <i class="fa-solid fa-user"></i>
+                                </a>
+                            </li> 
+
+                        <% } else { %>
+
+                               <!-- login -->
+                        <li>
+                            <a  class="loginbtn"   href="/login">Login</a>
+                        </li>
+
+                        <% } %>
+
+                        <!-- wishlist -->
+                        <a href="/wish" class="wishlist-link">
+                            <i class="icon-heart-o"></i>
+                        </a>
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="dropdown-toggle" role="button" >
+                                <i class="icon-shopping-cart"></i>
+                                <span class="cart-count" id="cart">1</span>
+                            </a>
+
+                        </div><!-- End .cart-dropdown -->
+
+                    </div><!-- End .header-right -->
+                </div><!-- End .container-fluid -->
+            </div><!-- End .header-middle -->
+        </header><!-- End .header -->
+
+
+
+        <main class="main">
+            <div class="intro-slider-container">
+                <div class="intro-slider owl-carousel owl-simple owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{"nav":false, "dots": false, "loop": false}'>
+                    <div class="intro-slide" style="background-image: url(assets/images/photos/mosalahbg.jpg);">
+                        <div class="container intro-content text-center">
+                            <h3 class="intro-subtitle">Want to know what's hot?</h3><!-- End .h3 intro-subtitle -->
+                            <h1 class="intro-title text-white">Spring Lookbook 2019</h1><!-- End .intro-title -->
+
+                            <a href="#scroll-to-content" class="btn btn-outline-primary-2 scroll-to">
+                                <span>Start scrolling</span>
+                                <i class="icon-long-arrow-down"></i>
+                            </a>
+                        </div><!-- End .intro-content -->
+                    </div><!-- End .intro-slide -->
+                </div><!-- End .intro-slider owl-carousel owl-simple -->
+
+                <span class="slider-loader text-white"></span><!-- End .slider-loader -->
+            </div><!-- End .intro-slider-container -->
+            
+            <div class="display-row" id="scroll-to-content">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 order-lg-last">
+                            <div class="banner banner-overlay">
+                                <a href="#">
+                                    <img src="assets/images/sahal.png" alt="Banner">
+                                </a>
+
+                                <div class="banner-content men">
+                                    <h2 class="banner-title text-white">01. Get your <br>inspiration <br>in the street.</h2><!-- End .banner-title -->
+                                    <h3 class="banner-subtitle text-brightblack">IN THIS LOOK</h3><!-- End .banner-subtitle -->
+
+                                    <ul class="text-white">
+                                        <li>Moto Jacket</li>
+                                        <li>Henry Backpack</li>
+                                    </ul>
+
+                                    <div class="banner-text text-brightblack">₹98.00 - v1,298.00</div><!-- End .banner-text -->
+                                    <a href="#" class="btn btn-outline-primary-2"><span>Buy All</span><i class="icon-long-arrow-right"></i></a>
+                                </div><!-- End .banner-content -->
+                            </div><!-- End .banner -->
+                        </div><!-- End .col-lg-6 -->
+
+                        <div class="col-lg-6">
+                            <div class="heading text-center">
+                                <h2 class="title">About This Look</h2><!-- End .title text-center -->
+                                <p class="title-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</p><!-- End .title-desc -->
+                            </div><!-- End .heading -->
+
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="product product-4">
+                                                <figure class="product-media">
+                                                    <a href="product.html">
+                                                        <img src="assets/images/vibinMohan.png" alt="Product image" class="product-image">
+                                                    </a>
+
+                                                    <div class="product-action-vertical">
+                                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                        <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                                        <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                                    </div><!-- End .product-action -->
+
+                                                    <div class="product-action">
+                                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                    </div><!-- End .product-action -->
+                                                </figure><!-- End .product-media -->
+
+                                                <div class="product-body">
+                                                    <h3 class="product-title"><a href="product.html">Suede Moto Jacket</a></h3><!-- End .product-title -->
+                                                    <div class="product-price">
+                                                        <span class="new-price">Now ₹1,298.00</span>
+                                                        <span class="old-price">Was ₹1,400.00</span>
+                                                    </div><!-- End .product-price -->
+                                                </div><!-- End .product-body -->
+                                            </div><!-- End .product -->
+                                        </div><!-- End .col-sm-6 -->
+
+                                        <div class="col-6">
+                                            <div class="product product-4">
+                                                <figure class="product-media">
+                                                    <a href="product.html">
+                                                        <img src="assets/images/azhar.png" alt="Product image" class="product-image">
+                                                    </a>
+
+                                                    <div class="product-action-vertical">
+                                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                                        <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                                                        <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                                                    </div><!-- End .product-action -->
+
+                                                    <div class="product-action">
+                                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                    </div><!-- End .product-action -->
+                                                </figure><!-- End .product-media -->
+
+                                                <div class="product-body">
+                                                    <h3 class="product-title"><a href="product.html">Henry Leather Backpack</a></h3><!-- End .product-title -->
+                                                    <div class="product-price">
+                                                        ₹448.00
+                                                    </div><!-- End .product-price -->
+
+                                                    <div class="product-nav product-nav-dots">
+                                                        <a href="#" class="active" style="background: #917f4d;"><span class="sr-only">Color name</span></a>
+                                                        <a href="#" style="background: #c55858;"><span class="sr-only">Color name</span></a>
+                                                    </div><!-- End .product-nav -->
+                                                </div><!-- End .product-body -->
+                                            </div><!-- End .product -->
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .col-lg-8 offset-lg-2 -->
+                            </div><!-- End .row -->
+                        </div><!-- End .col-lg-6 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container-fluid -->
+            </div><!-- End .display-row -->
+
+         
+
+            
+
+          
+
+            
+            
+        </main><!-- End .main -->
+
+        <script>
+
+            //  Cart Count :-
+        
+            cartAction()
+            
+            function cartAction(){
+        
+                const cartt = document.getElementById('cart')
+        
+                fetch('/cartAction' , {method : 'post'}).then(data=>data.json()).then(data =>{
+        
+                    cartt.textContent = data.success || 0
+        
+                    
+                })
+        
+            };
+        
+        </script>
+        <%- include('../layouts/footer1.ejs')-%>
